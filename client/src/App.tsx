@@ -5,26 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./redux/slicers/Auth.slicer";
 import { RootState } from "./redux/store";
 import Navbar from "./components/Navbar/Navbar";
+import { getUser } from "./redux/Thunk/getUser";
+import { useAppDispatch, useAppSelector } from "./redux/Thunk/type";
 
 function App() {
-  const dispatch = useDispatch();
-  const state = useSelector((state: RootState) => state.authSlice.user);
+  const dispatch = useAppDispatch();
+  const state = useAppSelector((state: RootState) => state.authSlice.user);
+  console.log("1", state);
 
   useEffect(() => {
-    (async () => {
-      const response = await fetch("http://localhost:3001/auth/",
-      {
-        credentials: 'include'
-      }
-      );
-      const user = await response.json();
-      console.log("USEEEEEEER", user);
-
-      if (user !== "") {
-        dispatch(setUser(user));
-      }
-    })();
-  }, []);
+    dispatch(getUser());
+    console.log("2", state);
+  }, [dispatch]);
 
   return (
     <div className="App">
