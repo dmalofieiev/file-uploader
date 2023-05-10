@@ -7,6 +7,8 @@ import { RootState } from "./redux/store";
 import Navbar from "./components/Navbar/Navbar";
 import { getUser } from "./redux/Thunk/getUser";
 import { useAppDispatch, useAppSelector } from "./redux/Thunk/type";
+import { Routes, Route } from "react-router-dom";
+import Files from "./components/Files/Files";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -19,11 +21,10 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="App">
-      <Navbar />
-      <Main />
-      <div>{JSON.stringify(state)}</div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Main />} />
+      <Route path="/files" element={<Files />} />
+    </Routes>
   );
 }
 

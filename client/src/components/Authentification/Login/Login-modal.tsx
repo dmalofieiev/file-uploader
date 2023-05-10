@@ -10,6 +10,7 @@ import { RootState } from "../../../redux/store";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { FormControl, FormLabel } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 type Input = {
   email: string;
@@ -23,6 +24,7 @@ const initialState: Input = {
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const state = useSelector((state: RootState) => state.authSlice.openLogin);
 
   const [inputs, setInputs] = useState(initialState);
@@ -46,6 +48,7 @@ function Login() {
       const result = await response.json();
       if (result.msg === "Удача!") {
         dispatch(hideLoginModal());
+        navigate("/files");
       } else {
         alert("Опаньки!");
       }

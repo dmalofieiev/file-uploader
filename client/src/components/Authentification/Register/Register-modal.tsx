@@ -10,6 +10,7 @@ import { RootState } from "../../../redux/store";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { FormControl, FormLabel } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 type Input = {
   user_name: string;
@@ -24,6 +25,7 @@ const initialState: Input = {
 };
 
 function Register() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const state = useSelector((state: RootState) => state.authSlice.openRegister);
 
@@ -48,6 +50,7 @@ function Register() {
       const result = await response.json();
       if (result.msg === "Пользователь зарегистрирован") {
         dispatch(hideRegisterModal());
+        navigate("/files");
       } else {
         alert("Опаньки!");
       }
