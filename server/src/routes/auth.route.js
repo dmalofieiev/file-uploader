@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const { User } = require("../../db/models");
 
 router.get("/", (req, res) => {
-  console.log("123");
+  console.log(' session =>',req.session);
   res.json({ user: req.session?.user || "" });
 });
 
@@ -16,6 +16,7 @@ router.post("/register", async (req, res) => {
   });
   if (newUser[1]) {
     req.session.user = newUser[0];
+    req.session.save()
     res.json({ msg: "Пользователь зарегистрирован" });
   } else {
     res.json({ msg: "Пользователь уже существует" });
