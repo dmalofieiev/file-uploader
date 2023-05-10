@@ -1,24 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface OpenState {
-  open: boolean;
+  openRegister: boolean;
+  openLogin: boolean;
 }
 
-const initialState = { open: false } as OpenState;
+const initialState = { openRegister: false, openLogin: false } as OpenState;
 
 const authSlicer = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    showModal(state) {
-      state.open = true;
+    showLoginModal(state) {
+      state.openLogin = true;
     },
-    hideModal(state) {
-      state.open = false;
+    hideLoginModal(state) {
+      state.openLogin = false;
+    },
+    showRegisterModal(state) {
+      state.openRegister = true;
+    },
+    hideRegisterModal(state) {
+      state.openRegister = false;
     },
   },
 });
 
-export const { showModal, hideModal } = authSlicer.actions;
+export const {
+  showLoginModal,
+  hideLoginModal,
+  showRegisterModal,
+  hideRegisterModal,
+} = authSlicer.actions;
 export default authSlicer.reducer;

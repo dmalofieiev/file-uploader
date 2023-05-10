@@ -3,8 +3,8 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  showRegisterModal,
-  hideRegisterModal,
+  showLoginModal,
+  hideLoginModal,
 } from "../../../redux/slicers/Auth.slicer";
 import { RootState } from "../../../redux/store";
 import TextField from "@mui/material/TextField";
@@ -12,20 +12,18 @@ import Button from "@mui/material/Button";
 import { FormControl, FormLabel } from "@mui/material";
 
 type Input = {
-  user_name: string;
   email: string;
   password: string;
 };
 
 const initialState: Input = {
-  user_name: "",
   email: "",
   password: "",
 };
 
-function Register() {
+function Login() {
   const dispatch = useDispatch();
-  const state = useSelector((state: RootState) => state.authSlice.openRegister);
+  const state = useSelector((state: RootState) => state.authSlice.openLogin);
 
   const [inputs, setInputs] = useState(initialState);
 
@@ -37,7 +35,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3001/auth/register", {
+      const response = await fetch("http://localhost:3001/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,8 +44,8 @@ function Register() {
         body: JSON.stringify(inputs),
       });
       const result = await response.json();
-      if (result.msg === "Пользователь зарегистрирован") {
-        dispatch(hideRegisterModal());
+      if (result.msg === "Удача!") {
+        dispatch(hideLoginModal());
       } else {
         alert("Опаньки!");
       }
@@ -60,18 +58,12 @@ function Register() {
     <div>
       <Modal
         open={state}
-        onClose={() => dispatch(hideRegisterModal())}
+        onClose={() => dispatch(hideLoginModal())}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box>
           <form onSubmit={submitHandler}>
-            <FormLabel>Enter Name</FormLabel>
-            <TextField
-              onChange={changeHandler}
-              name="user_name"
-              type="text"
-            ></TextField>
             <FormLabel>Enter Email</FormLabel>
             <TextField
               onChange={changeHandler}
@@ -92,4 +84,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;
