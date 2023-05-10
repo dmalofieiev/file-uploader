@@ -14,6 +14,7 @@ module.exports = {
       },
       file_size: {
         type: Sequelize.STRING,
+        defaultValue: 0,
       },
       file_link: {
         type: Sequelize.STRING,
