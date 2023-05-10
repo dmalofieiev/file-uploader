@@ -9,6 +9,21 @@ import { RootState } from "../../redux/store";
 export default function Add() {
   const state = useSelector((state: RootState) => state.fileSlicer.openForm);
   const dispatch = useDispatch();
+
+  const uploadFileHandler = async (e: any) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    const response = await fetch("http://localhost:3001/file/upload", {
+      method: "POST",
+      body: formData,
+      credentials: "include",
+    });
+
+    const fileInfo = await response.json();
+    console.log(fileInfo);
+  };
+
   return (
     <div>
       <Modal
@@ -18,8 +33,10 @@ export default function Add() {
         aria-describedby="modal-modal-description"
       >
         <Box>
-          <input name="file_link" type="file" />
-          <button>submit</button>
+          <form onSubmit={uploadFileHandler} encType="multipart/form-data">
+            <input name="file" type="file" />
+            <button>submit</button>
+          </form>
         </Box>
       </Modal>
     </div>
