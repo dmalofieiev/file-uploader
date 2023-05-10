@@ -4,11 +4,14 @@ require("@babel/register");
 const ReactDOMServer = require("react-dom/server");
 const React = require("react");
 const session = require("express-session");
+const cors = require("./src/middlewares/cors");
 const FileStore = require("session-file-store")(session);
 
 const express = require("express");
 
 const dbCheck = require("./src/middlewares/dbCheck");
+
+const authRouter = require("./src/routes/auth.route");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -34,7 +37,10 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(dbCheck);
+app.use(cors);
+
+app.use("/auth", authRouter);
 
 app.listen(PORT, () => {
-  console.log("Server started");
+  console.log(`Server started on ${PORT}`);
 });
