@@ -1,11 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../../Types";
 
 interface OpenState {
   openRegister: boolean;
   openLogin: boolean;
+  user: User;
 }
 
-const initialState = { openRegister: false, openLogin: false } as OpenState;
+const initialUser = {
+  id: 0,
+  user_name: "",
+};
+
+const initialState = {
+  openRegister: false,
+  openLogin: false,
+  user: initialUser,
+} as OpenState;
 
 const authSlicer = createSlice({
   name: "auth",
@@ -23,6 +34,9 @@ const authSlicer = createSlice({
     hideRegisterModal(state) {
       state.openRegister = false;
     },
+    setUser(state, action) {
+      state.user = action.payload;
+    },
   },
 });
 
@@ -31,5 +45,6 @@ export const {
   hideLoginModal,
   showRegisterModal,
   hideRegisterModal,
+  setUser,
 } = authSlicer.actions;
 export default authSlicer.reducer;
