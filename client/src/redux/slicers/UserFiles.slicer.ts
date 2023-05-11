@@ -3,25 +3,26 @@ import { OpenFilesState, fileUser, filesState } from "../../Types";
 import { getFiles } from "../Thunk/getFiles";
 
 const initialFile = {
-  title: '',
-  file_size: '',
-  file_link:'',
-} as fileUser
+  title: "",
+  file_size: "",
+  file_link: "",
+} as fileUser;
 
 const initialState = {
-  files:[],
+  files: [],
   loading: false,
-  error:null
-} as OpenFilesState
+  error: null,
+} as OpenFilesState;
 
 const userFilesSlicer = createSlice({
-  name: 'files',
+  name: "files",
   initialState,
   reducers: {
-
+    setFiles(state, action) {
+      state.files = [...state.files, action.payload];
+    },
   },
-  extraReducers:
-  (builder) => {
+  extraReducers: (builder) => {
     builder
       .addCase(getFiles.pending, (state) => {
         state.loading = true;
@@ -36,4 +37,8 @@ const userFilesSlicer = createSlice({
         state.error = action.error.message;
       });
   },
-})
+});
+
+export const { setFiles } = userFilesSlicer.actions;
+
+export default userFilesSlicer.reducer;
