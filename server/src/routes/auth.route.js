@@ -43,7 +43,6 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  console.log("<<<<<LOGOUT>>>>>>>>>");
   req.session.destroy(() => {
     res.clearCookie("Cookie");
     res.json({ user: "" });

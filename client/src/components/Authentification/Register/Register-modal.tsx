@@ -2,23 +2,29 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  showRegisterModal,
-  hideRegisterModal,
-} from "../../../redux/slicers/Auth.slicer";
+import { hideRegisterModal } from "../../../redux/slicers/Auth.slicer";
 import { RootState } from "../../../redux/store";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { FormControl, FormLabel } from "@mui/material";
+import { FormLabel } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { regInput } from "../../../Types";
+import "./Register-modal.css";
 
-type Input = {
-  user_name: string;
-  email: string;
-  password: string;
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 200,
+  height: 340,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
 };
 
-const initialState: Input = {
+const initialState: regInput = {
   user_name: "",
   email: "",
   password: "",
@@ -67,8 +73,9 @@ function Register() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box>
-          <form onSubmit={submitHandler}>
+        <Box sx={style}>
+          <form className="register-form" onSubmit={submitHandler}>
+            <h2 className="register-form-header">Register</h2>
             <FormLabel>Enter Name</FormLabel>
             <TextField
               onChange={changeHandler}
@@ -87,7 +94,9 @@ function Register() {
               name="password"
               type="password"
             ></TextField>
-            <Button type="submit">Submit</Button>
+            <Button className="register-button" type="submit">
+              Register
+            </Button>
           </form>
         </Box>
       </Modal>

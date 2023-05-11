@@ -1,14 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { User } from "../../Types";
 import { getUser } from "../Thunk/getUser";
-
-interface OpenState {
-  openRegister: boolean;
-  openLogin: boolean;
-  user: User;
-  loading: boolean;
-  error: any,
-}
+import { OpenState } from "../../Types";
 
 const initialUser = {
   id: 0,
@@ -20,7 +12,7 @@ const initialState = {
   openLogin: false,
   user: initialUser,
   loading: false,
-  error: null
+  error: null,
 } as OpenState;
 
 const authSlicer = createSlice({

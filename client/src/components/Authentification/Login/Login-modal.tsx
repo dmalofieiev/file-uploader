@@ -2,24 +2,31 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  showLoginModal,
-  hideLoginModal,
-} from "../../../redux/slicers/Auth.slicer";
+import { hideLoginModal } from "../../../redux/slicers/Auth.slicer";
 import { RootState } from "../../../redux/store";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { FormControl, FormLabel } from "@mui/material";
+import { FormLabel } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { logInput } from "../../../Types";
+import "./Login-modal.css";
 
-type Input = {
-  email: string;
-  password: string;
-};
-
-const initialState: Input = {
+const initialState: logInput = {
   email: "",
   password: "",
+};
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 200,
+  height: 270,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
 };
 
 function Login() {
@@ -65,8 +72,9 @@ function Login() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box>
-          <form onSubmit={submitHandler}>
+        <Box sx={style}>
+          <form className="login-form" onSubmit={submitHandler}>
+            <h2 className="login-form-header">Login</h2>
             <FormLabel>Enter Email</FormLabel>
             <TextField
               onChange={changeHandler}
@@ -79,7 +87,9 @@ function Login() {
               name="password"
               type="password"
             ></TextField>
-            <Button type="submit">Submit</Button>
+            <Button className="login-button" type="submit">
+              Login
+            </Button>
           </form>
         </Box>
       </Modal>

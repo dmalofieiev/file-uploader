@@ -1,8 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface formState {
-  openForm: boolean;
-}
+import { formState } from "../../Types";
 
 const initialState = {
   openForm: false,

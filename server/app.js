@@ -8,7 +8,6 @@ const dbCheck = require("./src/middlewares/dbCheck");
 
 const authRouter = require("./src/routes/auth.route");
 const addFileRouter = require("./src/routes/add.route");
-const upload = require("./src/middlewares/file");
 
 const app = express();
 const PORT = process.env.PORT || 3000;

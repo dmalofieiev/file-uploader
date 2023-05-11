@@ -1,11 +1,21 @@
-import React from "react";
-import { RootState, useAppSelector } from "../../redux/Thunk/type";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from "../../redux/Thunk/type";
+import { useNavigate } from "react-router-dom";
+import { getUser } from "../../redux/Thunk/getUser";
 
 function Navbar() {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.authSlice.user);
   const loading = useAppSelector((state: RootState) => state.authSlice.loading);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   const logoutHandler = async () => {
     const response = await fetch("http://localhost:3001/auth/logout", {
@@ -14,6 +24,7 @@ function Navbar() {
     const result = await response.json();
     navigate("/");
   };
+
   return (
     <div className="nav-wrapper">
       <h1>ЗАГРУЖАТОР 3000</h1>
