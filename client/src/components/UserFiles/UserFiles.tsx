@@ -20,15 +20,24 @@ export default function UserFiles() {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90 },
     { field: "title", headerName: "Title", width: 150 },
-    { field: "size", headerName: "Size", width: 120 },
-    { field: "createdAt", headerName: "Created Time", width: 150 },
+    { field: "file_size", headerName: "Size", width: 120 },
+    { field: "createdAt", headerName: "Created Time", width: 155 },
   ];
 
-  const rows = files;
+  console.log(files);
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const rows = files.map((el) => ({
+    ...el,
+    file_size: `${(Number(el.file_size) / 1024).toFixed(1)} kB`,
+    createdAt: new Date(el.createdAt).toLocaleString('ru-RU')
+  }));
+  
+  
+    
 
   useEffect(() => {
     dispatch(getFiles());
-  }, [dispatch]);
+  }, []);
 
   return (
     <div>

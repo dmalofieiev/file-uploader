@@ -32,8 +32,8 @@ export type fileUser = {
   file_size: string;
   file_link: string;
   userId: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string
+  updatedAt: Date | string
 };
 
 export type filesState = fileUser[];

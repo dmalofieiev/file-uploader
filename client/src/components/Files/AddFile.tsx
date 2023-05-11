@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { closeFormModal } from "../../redux/slicers/File.slicer";
 import "./AddFile.css";
+import { setFiles } from "../../redux/slicers/UserFiles.slicer";
 
 export default function Add() {
   const openForm = useSelector((state: RootState) => state.fileSlicer.openForm);
@@ -21,6 +22,7 @@ export default function Add() {
     });
 
     const fileInfo = await response.json();
+    dispatch(setFiles(fileInfo))
     dispatch(closeFormModal());
   };
 
