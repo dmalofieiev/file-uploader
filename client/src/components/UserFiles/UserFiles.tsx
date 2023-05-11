@@ -4,9 +4,9 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../redux/Thunk/type";
-import { getUser } from "../../redux/Thunk/getUser";
 import { getFiles } from "../../redux/Thunk/getFiles";
-import FileCard from "../FileCard/FileCard";
+import Box from "@mui/material/Box";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 export default function UserFiles() {
   const dispatch = useAppDispatch();
@@ -17,15 +17,37 @@ export default function UserFiles() {
     (state: RootState) => state.userFilesSlicer.loading
   );
 
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "ID", width: 90 },
+    { field: "title", headerName: "Title", width: 150 },
+    { field: "size", headerName: "Size", width: 120 },
+    { field: "createdAt", headerName: "Created Time", width: 150 },
+  ];
+
+  const rows = files;
+
   useEffect(() => {
     dispatch(getFiles());
   }, [dispatch]);
 
   return (
     <div>
-      {files.map((file) => (
-        <FileCard file={file} />
-      ))}
+      <Box sx={{ height: 400, width: 1000 }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
+      </Box>
     </div>
   );
 }

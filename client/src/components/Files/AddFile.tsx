@@ -2,11 +2,12 @@ import { Modal } from "@mui/base";
 import { Box } from "@mui/system";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { hideRegisterModal } from "../../redux/slicers/Auth.slicer";
 import { RootState } from "../../redux/store";
+import { closeFormModal } from "../../redux/slicers/File.slicer";
+import "./AddFile.css";
 
 export default function Add() {
-  const state = useSelector((state: RootState) => state.fileSlicer.openForm);
+  const openForm = useSelector((state: RootState) => state.fileSlicer.openForm);
   const dispatch = useDispatch();
 
   const uploadFileHandler = async (e: any) => {
@@ -20,21 +21,38 @@ export default function Add() {
     });
 
     const fileInfo = await response.json();
-    console.log(fileInfo);
+    dispatch(closeFormModal());
+  };
+
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 200,
+    height: 100,
+    bgcolor: "gray",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
   };
 
   return (
     <div>
       <Modal
-        open={state}
-        onClose={() => dispatch(hideRegisterModal())}
+        open={openForm}
+        onClose={() => dispatch(closeFormModal())}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box>
-          <form onSubmit={uploadFileHandler} encType="multipart/form-data">
+        <Box sx={style}>
+          <form
+            className="add-file-form"
+            onSubmit={uploadFileHandler}
+            encType="multipart/form-data"
+          >
             <input name="file" type="file" />
-            <button>submit</button>
+            <button>Upload File</button>
           </form>
         </Box>
       </Modal>

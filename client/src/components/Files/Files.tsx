@@ -12,9 +12,7 @@ export default function Files() {
     <>
       <Navbar />
       <div>
-        <button onClick={() => dispatch(openFormModal())}>
-          загрузить файл!
-        </button>
+        <button onClick={() => dispatch(openFormModal())}>Upload File</button>
         <AddFile />
         <UserFiles />
       </div>
