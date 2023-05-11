@@ -25,3 +25,17 @@ export type regInput = {
   email: string;
   password: string;
 };
+
+export type fileUser = {
+  title: string,
+  file_size: string,
+  file_link:string,
+}
+
+export type filesState = fileUser[]
+
+export type OpenFilesState = {
+  files: filesState,
+  loading: boolean,
+  error: any;
+}

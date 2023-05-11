@@ -8,6 +8,7 @@ const dbCheck = require("./src/middlewares/dbCheck");
 
 const authRouter = require("./src/routes/auth.route");
 const addFileRouter = require("./src/routes/add.route");
+const userFilesRouter = require ('./src/routes/userFiles.route')
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -42,6 +43,7 @@ app.use(cors(corsOptions));
 
 app.use("/auth", authRouter);
 app.use("/file", addFileRouter);
+app.use('/userfiles', userFilesRouter)
 
 app.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
