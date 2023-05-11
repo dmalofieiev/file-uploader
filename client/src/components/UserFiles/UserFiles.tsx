@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   RootState,
   useAppDispatch,
@@ -10,8 +10,12 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import { delFileFromRedux } from "../../redux/slicers/UserFiles.slicer";
 import { delFileFromBack } from "../../redux/Thunk/delFileFromBack";
+import EditForm from "../EditForm/EditForm";
+import { openEditFormModal } from "../../redux/slicers/EditForm.slicer";
 
 export default function UserFiles() {
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const dispatch = useAppDispatch();
   const files = useAppSelector(
     (state: RootState) => state.userFilesSlicer.files
@@ -28,23 +32,37 @@ export default function UserFiles() {
     {
       field: "actions",
       headerName: "Actions",
-      width: 100,
+      width: 170,
       renderCell: (params) => (
-        <Button
-          variant="outlined"
-          size="small"
-          color="error"
-          onClick={() => handleButtonClick(params)}
-        >
-          Delete
-        </Button>
+        <>
+          <Button
+            variant="outlined"
+            size="small"
+            color="error"
+            onClick={() => {
+              setSelectedFile(params.row);
+              dispatch(openEditFormModal());
+            }}
+          >
+            Edit
+          </Button>
+          <Button
+            variant="outlined"
+            size="small"
+            color="error"
+            onClick={() => {
+              deleteHandler(params);
+            }}
+          >
+            Delete
+          </Button>
+        </>
       ),
     },
   ];
 
-  const handleButtonClick = (params: any) => {
+  const deleteHandler = (params: any) => {
     dispatch(delFileFromBack(params.row.id));
-    // console.log("Button clicked for row:", params.row);
   };
 
   const options = {
@@ -64,23 +82,26 @@ export default function UserFiles() {
   }, []);
 
   return (
-    <div>
-      <Box sx={{ height: 400, width: 1000 }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
+    <>
+      <div>
+        <Box sx={{ height: 400, width: 1000 }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
               },
-            },
-          }}
-          pageSizeOptions={[5]}
-          checkboxSelection
-          disableRowSelectionOnClick
-        />
-      </Box>
-    </div>
+            }}
+            pageSizeOptions={[5]}
+            checkboxSelection
+            disableRowSelectionOnClick
+          />
+        </Box>
+      </div>
+      <EditForm selectedFile={selectedFile} />
+    </>
   );
 }

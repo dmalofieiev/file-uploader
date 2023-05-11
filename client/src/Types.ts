@@ -15,6 +15,10 @@ export interface formState {
   openForm: boolean;
 }
 
+export interface formState2 {
+  openEditForm: boolean;
+}
+
 export type logInput = {
   email: string;
   password: string;
@@ -32,8 +36,8 @@ export type fileUser = {
   file_size: string;
   file_link: string;
   userId: number;
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt: Date | string;
+  updatedAt: Date | string;
 };
 
 export type filesState = fileUser[];
