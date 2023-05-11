@@ -28,7 +28,7 @@ const userFilesSlicer = createSlice({
         state.loading = true;
       })
       .addCase(getFiles.fulfilled, (state, action) => {
-        state.files = [...state.files, action.payload];
+        state.files = action.payload;
         state.loading = false;
         state.error = null;
       })

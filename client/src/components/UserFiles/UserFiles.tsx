@@ -6,6 +6,7 @@ import {
 } from "../../redux/Thunk/type";
 import { getUser } from "../../redux/Thunk/getUser";
 import { getFiles } from "../../redux/Thunk/getFiles";
+import FileCard from "../FileCard/FileCard";
 
 export default function UserFiles() {
   const dispatch = useAppDispatch();
@@ -20,5 +21,11 @@ export default function UserFiles() {
     dispatch(getFiles());
   }, [dispatch]);
 
-  return <div>{JSON.stringify(files)}</div>;
+  return (
+    <div>
+      {files.map((file) => (
+        <FileCard file={file} />
+      ))}
+    </div>
+  );
 }

@@ -27,15 +27,19 @@ export type regInput = {
 };
 
 export type fileUser = {
-  title: string,
-  file_size: string,
-  file_link:string,
-}
+  id: number;
+  title: string;
+  file_size: string;
+  file_link: string;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
-export type filesState = fileUser[]
+export type filesState = fileUser[];
 
 export type OpenFilesState = {
-  files: filesState,
-  loading: boolean,
+  files: filesState;
+  loading: boolean;
   error: any;
-}
+};

@@ -8,7 +8,7 @@ const dbCheck = require("./src/middlewares/dbCheck");
 
 const authRouter = require("./src/routes/auth.route");
 const addFileRouter = require("./src/routes/add.route");
-const userFilesRouter = require ('./src/routes/userFiles.route')
+const userFilesRouter = require("./src/routes/userFiles.route");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,7 +35,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(dbCheck);
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "http://localhost:3002"],
   credentials: true,
 };
 
@@ -43,7 +43,7 @@ app.use(cors(corsOptions));
 
 app.use("/auth", authRouter);
 app.use("/file", addFileRouter);
-app.use('/userfiles', userFilesRouter)
+app.use("/userfiles", userFilesRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
