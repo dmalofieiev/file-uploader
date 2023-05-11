@@ -25,4 +25,19 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+  console.log(id, title);
+
+  try {
+    const editFile = await File.update({ title }, { where: { id } });
+    if (editFile) {
+      res.json({ msg: "Updated!" });
+    }
+  } catch (error) {
+    res.json("chtoto poshlo ne tak", error);
+  }
+});
+
 module.exports = router;

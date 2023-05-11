@@ -3,18 +3,28 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeEditFormModal } from "../../redux/slicers/EditForm.slicer";
 import { RootState } from "../../redux/store";
+import { editFileFromBack } from "../../redux/Thunk/editFiles";
+import { useAppDispatch } from "../../redux/Thunk/type";
 
-export default function EditForm({ selectedFile }) {
-  console.log("selectedFile: -------->", selectedFile);
-  const dispatch = useDispatch();
+export default function EditForm({ selectedFile }: any) {
+  console.log(selectedFile);
+
+  const dispatch = useAppDispatch();
   const openEditForm = useSelector(
     (state: RootState) => state.editFileSlicer.openEditForm
   );
 
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(selectedFile.title);
 
   const inputHandler = (e: any) => {
     setInput(e.target.value);
+  };
+
+  const uploadFileHandler = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    dispatch(editFileFromBack(selectedFile.id, input));
+    dispatch(closeEditFormModal());
+    console.log(input);
   };
 
   const style = {
@@ -41,16 +51,16 @@ export default function EditForm({ selectedFile }) {
         <Box sx={style}>
           <form
             className="add-file-form"
-            // onSubmit={uploadFileHandler}
+            onSubmit={uploadFileHandler}
             encType="multipart/form-data"
           >
             <input
               name="text"
               type="text"
               onChange={inputHandler}
-              defaultValue={input}
+              defaultValue={selectedFile.title}
             />
-            <button>Edit title</button>
+            <button type="submit">Edit title</button>
           </form>
         </Box>
       </Modal>

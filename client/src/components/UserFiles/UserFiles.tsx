@@ -8,13 +8,12 @@ import { getFiles } from "../../redux/Thunk/getFiles";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
-import { delFileFromRedux } from "../../redux/slicers/UserFiles.slicer";
 import { delFileFromBack } from "../../redux/Thunk/delFileFromBack";
 import EditForm from "../EditForm/EditForm";
 import { openEditFormModal } from "../../redux/slicers/EditForm.slicer";
 
 export default function UserFiles() {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState("");
 
   const dispatch = useAppDispatch();
   const files = useAppSelector(
@@ -101,7 +100,7 @@ export default function UserFiles() {
           />
         </Box>
       </div>
-      <EditForm selectedFile={selectedFile} />
+      <EditForm selectedFile={selectedFile} setSelectedFile={setSelectedFile} />
     </>
   );
 }
