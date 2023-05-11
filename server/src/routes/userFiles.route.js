@@ -12,4 +12,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedFile = await File.destroy({ where: { id } });
+    if (deletedFile) {
+      res.json({ msg: "deleted" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+});
+
 module.exports = router;

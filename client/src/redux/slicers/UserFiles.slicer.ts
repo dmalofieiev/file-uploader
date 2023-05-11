@@ -21,6 +21,9 @@ const userFilesSlicer = createSlice({
     setFiles(state, action) {
       state.files = [...state.files, action.payload];
     },
+    delFileFromRedux(state, action) {
+      state.files = state.files.filter((file) => file.id !== action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -39,6 +42,6 @@ const userFilesSlicer = createSlice({
   },
 });
 
-export const { setFiles } = userFilesSlicer.actions;
+export const { setFiles, delFileFromRedux } = userFilesSlicer.actions;
 
 export default userFilesSlicer.reducer;
