@@ -27,14 +27,14 @@ export default function UserFiles() {
   );
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 90 },
+    // { field: "id", headerName: "ID", width: 90 },
     { field: "title", headerName: "Title", width: 350 },
     { field: "file_size", headerName: "Size", width: 150 },
     { field: "createdAt", headerName: "Created At", width: 200 },
     {
       field: "actions",
       headerName: "Actions",
-      width: 250,
+      width: 155,
       renderCell: (params) => (
         <>
           <IconButton
@@ -127,6 +127,7 @@ export default function UserFiles() {
             <Button
               variant="outlined"
               color="error"
+              sx={{ mt: 2 }}
               onClick={deleteSelectedHandler}
             >
               Delete Selected

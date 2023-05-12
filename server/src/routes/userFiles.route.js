@@ -24,7 +24,7 @@ router.delete("/:id", async (req, res) => {
       return;
     }
 
-    const filePath = `fileStorage/${file.title}`;
+    const filePath = `fileStorage/${req.session.user.id}/${file.title}`;
 
     fs.unlinkSync(filePath);
 
@@ -44,12 +44,12 @@ router.put("/:id", async (req, res) => {
 
   try {
     const file = await File.findOne({ where: { id } });
-    const oldPath = `fileStorage/${file.title}`;
+    const oldPath = `fileStorage/${req.session.user.id}/${file.title}`;
 
     const newFile = await file.update({ title });
     console.log(newFile);
 
-    const newPath = `fileStorage/${newFile.title}`;
+    const newPath = `fileStorage/${req.session.user.id}/${newFile.title}`;
 
     fs.renameSync(oldPath, newPath);
 
@@ -63,7 +63,7 @@ router.get("/:id/download", async (req, res) => {
   const { id } = req.params;
   try {
     const file = await File.findOne({ where: { id } });
-    const filePath = `fileStorage/${file.title}`;
+    const filePath = `fileStorage/${req.session.user.id}/${file.title}`;
 
     res.download(filePath);
   } catch (error) {

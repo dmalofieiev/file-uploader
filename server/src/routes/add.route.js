@@ -1,10 +1,14 @@
 const router = require("express").Router();
 const { File } = require("../../db/models");
 const multer = require("multer");
+const fs = require("fs");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "fileStorage");
+    const userDirectory = `fileStorage/${req.session.user.id}`; // create a directory named after the user
+    fs.mkdirSync(userDirectory, { recursive: true }); // create the directory if it does not exist
+    cb(null, userDirectory);
+    // cb(null, `fileStorage/${req.session.user.id}`);
   },
   filename(req, file, cb) {
     cb(null, file.originalname);
@@ -26,7 +30,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     const newFile = await File.create({
       title: file.originalname,
       file_size: file.size.toString(),
-      file_link: `fileStorage/${file.filename}`,
+      file_link: `fileStorage/${req.session.user.id}/${file.filename}`,
       userId: req.session.user.id,
     });
 

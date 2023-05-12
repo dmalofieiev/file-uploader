@@ -1,11 +1,12 @@
-import { Modal } from "@mui/base";
-import { Box } from "@mui/system";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { closeFormModal } from "../../redux/slicers/File.slicer";
 import "./AddFile.css";
 import { setFiles } from "../../redux/slicers/UserFiles.slicer";
+import Button from "@mui/material/Button";
 
 export default function Add() {
   const openForm = useSelector((state: RootState) => state.fileSlicer.openForm);
@@ -31,10 +32,9 @@ export default function Add() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 200,
-    height: 100,
-    bgcolor: "gray",
-    border: "2px solid #000",
+    width: 400,
+    height: 140,
+    bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
     zIndex: 100,
@@ -55,7 +55,9 @@ export default function Add() {
             encType="multipart/form-data"
           >
             <input name="file" type="file" />
-            <button>Upload File</button>
+            <button className="upload-button" style={{ marginTop: "30px" }}>
+              Upload File
+            </button>
           </form>
         </Box>
       </Modal>

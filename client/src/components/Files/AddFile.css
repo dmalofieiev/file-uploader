@@ -3,3 +3,33 @@
   flex-direction: column;
   gap: 20px;
 }
+
+input[type="file"] {
+  /* color: transparent; */
+  /* padding-right: -10px; */
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+input[type="file"]::before {
+  content: "Choose file";
+  color: #fff;
+  background-color: #007bff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+input[type="file"]:hover::before {
+  background-color: #0069d9;
+}
+
+input[type="file"]:active::before {
+  background-color: #0062cc;
+}
