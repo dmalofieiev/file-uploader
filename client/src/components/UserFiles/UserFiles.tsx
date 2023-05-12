@@ -64,14 +64,9 @@ export default function UserFiles() {
     dispatch(delFileFromBack(params.row.id));
   };
 
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  const rows = files.map((el) => ({
+  const rows = files.map((el, i) => ({
     ...el,
+    id: i + 1,
     file_size: `${(Number(el.file_size) / 1024).toFixed(1)} kB`,
     createdAt: new Date(el.createdAt).toLocaleString("ru-RU"),
   }));
