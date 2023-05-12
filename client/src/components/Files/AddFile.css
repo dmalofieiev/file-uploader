@@ -1,16 +1,21 @@
 .add-file-form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
 }
 
+.upload-button.upload {
+  width: 190px;
+}
+
 input[type="file"] {
-  /* color: transparent; */
-  /* padding-right: -10px; */
   background-color: transparent;
   border: none;
   font-size: 1rem;
   cursor: pointer;
+  width: 95%;
 }
 
 input[type="file"]::-webkit-file-upload-button {

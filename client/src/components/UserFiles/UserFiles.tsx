@@ -27,7 +27,7 @@ export default function UserFiles() {
   );
 
   const columns: GridColDef[] = [
-    // { field: "id", headerName: "ID", width: 90 },
+    { field: "numeration", headerName: "ID", width: 90 },
     { field: "title", headerName: "Title", width: 350 },
     { field: "file_size", headerName: "Size", width: 150 },
     { field: "createdAt", headerName: "Created At", width: 200 },
@@ -95,6 +95,7 @@ export default function UserFiles() {
 
   const rows = files.map((el, i) => ({
     ...el,
+    numeration: i + 1,
     file_size: `${(Number(el.file_size) / 1024).toFixed(1)} kB`,
     createdAt: new Date(el.createdAt).toLocaleString("ru-RU"),
   }));

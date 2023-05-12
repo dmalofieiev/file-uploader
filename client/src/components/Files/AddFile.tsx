@@ -6,7 +6,6 @@ import { RootState } from "../../redux/store";
 import { closeFormModal } from "../../redux/slicers/File.slicer";
 import "./AddFile.css";
 import { setFiles } from "../../redux/slicers/UserFiles.slicer";
-import Button from "@mui/material/Button";
 
 export default function Add() {
   const openForm = useSelector((state: RootState) => state.fileSlicer.openForm);
@@ -55,7 +54,10 @@ export default function Add() {
             encType="multipart/form-data"
           >
             <input name="file" type="file" />
-            <button className="upload-button" style={{ marginTop: "30px" }}>
+            <button
+              className="upload-button upload"
+              style={{ marginTop: "30px" }}
+            >
               Upload File
             </button>
           </form>
