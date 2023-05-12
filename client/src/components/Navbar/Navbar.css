@@ -1,0 +1,24 @@
+.nav-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.logout-link {
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.logout-link:hover {
+  text-decoration: underline;
+}
+
+.nav-logo {
+  width: 100px;
+}

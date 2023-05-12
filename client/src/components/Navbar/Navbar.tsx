@@ -6,12 +6,18 @@ import {
 } from "../../redux/Thunk/type";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../redux/Thunk/getUser";
+import "./Navbar.css";
+import Link from "@mui/material/Link";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function Navbar() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.authSlice.user);
   const loading = useAppSelector((state: RootState) => state.authSlice.loading);
   const navigate = useNavigate();
+  const files = useAppSelector(
+    (state: RootState) => state.userFilesSlicer.files
+  );
 
   useEffect(() => {
     dispatch(getUser());
@@ -27,11 +33,16 @@ function Navbar() {
 
   return (
     <div className="nav-wrapper">
-      <h1>ЗАГРУЖАТОР 3000</h1>
+      <img className="nav-logo" src="/assets/cloud.png" alt="321" />
       {!loading && user ? (
         <>
-          <h5>User: {user.user_name}</h5>
-          <button onClick={logoutHandler}>Logout</button>
+          <h3>
+            Hello, {user.user_name}! You have {files.length} files in storage.
+          </h3>
+          <a className="logout-link" onClick={logoutHandler}>
+            <LogoutIcon />
+            Logout
+          </a>
         </>
       ) : (
         <></>

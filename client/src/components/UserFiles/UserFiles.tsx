@@ -25,15 +25,12 @@ export default function UserFiles() {
   const files = useAppSelector(
     (state: RootState) => state.userFilesSlicer.files
   );
-  const loading = useAppSelector(
-    (state: RootState) => state.userFilesSlicer.loading
-  );
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90 },
-    { field: "title", headerName: "Title", width: 150 },
-    { field: "file_size", headerName: "Size", width: 120 },
-    { field: "createdAt", headerName: "Created Time", width: 155 },
+    { field: "title", headerName: "Title", width: 350 },
+    { field: "file_size", headerName: "Size", width: 150 },
+    { field: "createdAt", headerName: "Created At", width: 200 },
     {
       field: "actions",
       headerName: "Actions",
@@ -85,16 +82,15 @@ export default function UserFiles() {
 
   const handleRowSelection = (selectedRows: any[]) => {
     //* хэндлер для обновления состояния выбранных строк (объектов)
-    setSelectedRows(selectedRows); // Обновляем состояние выбранных строк при изменении чекбоксов
+    setSelectedRows(selectedRows);
     console.log(selectedRows);
   };
 
   const deleteSelectedHandler = () => {
-    // Обработчик для удаления выбранных строк
     selectedRows.forEach((id: number) => {
       dispatch(delFileFromBack(id));
     });
-    setSelectedRows([]); // Сброс выбранных строк после удаления
+    setSelectedRows([]);
   };
 
   const rows = files.map((el, i) => ({
@@ -109,7 +105,7 @@ export default function UserFiles() {
 
   return (
     <>
-      <div>
+      <div className="table-wrapper">
         <Box sx={{ height: 400, width: 1000 }}>
           <DataGrid
             rows={rows}
@@ -124,8 +120,8 @@ export default function UserFiles() {
             pageSizeOptions={[5]}
             checkboxSelection
             disableRowSelectionOnClick
-            onRowSelectionModelChange={handleRowSelection} // Обработчик изменений выбранных строк
-            rowSelectionModel={selectedRows} // Передаем выбранные строки из состояния
+            onRowSelectionModelChange={handleRowSelection}
+            rowSelectionModel={selectedRows}
           />
           {selectedRows.length > 0 && (
             <Button
