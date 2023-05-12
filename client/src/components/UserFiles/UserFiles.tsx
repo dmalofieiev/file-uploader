@@ -37,7 +37,7 @@ export default function UserFiles() {
           <Button
             variant="outlined"
             size="small"
-            color="error"
+            color="primary"
             onClick={() => {
               setSelectedFile(params.row);
               dispatch(openEditFormModal());
@@ -66,7 +66,6 @@ export default function UserFiles() {
 
   const rows = files.map((el, i) => ({
     ...el,
-    id: i + 1,
     file_size: `${(Number(el.file_size) / 1024).toFixed(1)} kB`,
     createdAt: new Date(el.createdAt).toLocaleString("ru-RU"),
   }));
