@@ -35,7 +35,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(dbCheck);
 const corsOptions = {
-  origin: ["http://localhost:3000", "http://localhost:3002"],
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:3002",
+    "http://localhost:3003",
+  ],
   credentials: true,
 };
 

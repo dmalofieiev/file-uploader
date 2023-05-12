@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import { delFileFromBack } from "../../redux/Thunk/delFileFromBack";
 import EditForm from "../EditForm/EditForm";
 import { openEditFormModal } from "../../redux/slicers/EditForm.slicer";
+import { downloadedFile } from "../../redux/Thunk/downloadFile";
 
 export default function UserFiles() {
   const [selectedFile, setSelectedFile] = useState("");
@@ -31,7 +32,7 @@ export default function UserFiles() {
     {
       field: "actions",
       headerName: "Actions",
-      width: 170,
+      width: 250,
       renderCell: (params) => (
         <>
           <Button
@@ -55,6 +56,16 @@ export default function UserFiles() {
           >
             Delete
           </Button>
+          <Button
+            variant="outlined"
+            size="small"
+            color="error"
+            onClick={() => {
+              downloadHandler(params);
+            }}
+          >
+            Download
+          </Button>
         </>
       ),
     },
@@ -62,6 +73,9 @@ export default function UserFiles() {
 
   const deleteHandler = (params: any) => {
     dispatch(delFileFromBack(params.row.id));
+  };
+  const downloadHandler = (params: any) => {
+    dispatch(downloadedFile(params.row.id, params.row.title));
   };
 
   const rows = files.map((el, i) => ({

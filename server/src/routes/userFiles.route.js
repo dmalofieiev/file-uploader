@@ -59,4 +59,17 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.get("/:id/download", async (req, res) => {
+  console.log("hola");
+  const { id } = req.params;
+  try {
+    const file = await File.findOne({ where: { id } });
+    const filePath = `fileStorage/${file.title}`;
+
+    res.download(filePath);
+  } catch (error) {
+    res.status(500).json({ msg: "Something went wrong" });
+  }
+});
+
 module.exports = router;
