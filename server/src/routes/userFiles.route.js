@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const { File } = require("../../db/models");
+const fs = require("fs");
+const path = require("path");
 
 router.get("/", async (req, res) => {
   const userId = req.session?.user?.id;
@@ -15,28 +17,45 @@ router.get("/", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
+    const file = await File.findOne({ where: { id } });
+
+    if (!file) {
+      res.status(404).json({ msg: "File not found" });
+      return;
+    }
+
+    const filePath = `fileStorage/${file.title}`;
+
+    fs.unlinkSync(filePath);
+
     const deletedFile = await File.destroy({ where: { id } });
     if (deletedFile) {
-      res.json({ msg: "deleted" });
+      res.json({ msg: "File deleted" });
     }
   } catch (error) {
     console.log(error);
-    res.json(error);
+    res.status(500).json({ msg: "Something went wrong" });
   }
 });
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
-  console.log(id, title);
 
   try {
-    const editFile = await File.update({ title }, { where: { id } });
-    if (editFile) {
-      res.json({ msg: "Updated!" });
-    }
+    const file = await File.findOne({ where: { id } });
+    const oldPath = `fileStorage/${file.title}`;
+
+    const newFile = await file.update({ title });
+    console.log(newFile);
+
+    const newPath = `fileStorage/${newFile.title}`;
+
+    fs.renameSync(oldPath, newPath);
+
+    res.json({ msg: "Updated!" });
   } catch (error) {
-    res.json("chtoto poshlo ne tak", error);
+    res.status(500).json({ msg: "Something went wrong" });
   }
 });
 

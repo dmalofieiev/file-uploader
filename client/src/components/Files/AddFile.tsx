@@ -22,7 +22,7 @@ export default function Add() {
     });
 
     const fileInfo = await response.json();
-    dispatch(setFiles(fileInfo))
+    dispatch(setFiles(fileInfo));
     dispatch(closeFormModal());
   };
 
@@ -37,6 +37,7 @@ export default function Add() {
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
+    zIndex: 100,
   };
 
   return (
