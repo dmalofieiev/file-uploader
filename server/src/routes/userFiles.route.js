@@ -60,7 +60,6 @@ router.put("/:id", async (req, res) => {
 });
 
 router.get("/:id/download", async (req, res) => {
-  console.log("hola");
   const { id } = req.params;
   try {
     const file = await File.findOne({ where: { id } });

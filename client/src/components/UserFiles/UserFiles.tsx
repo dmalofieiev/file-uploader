@@ -8,13 +8,18 @@ import { getFiles } from "../../redux/Thunk/getFiles";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import { delFileFromBack } from "../../redux/Thunk/delFileFromBack";
 import EditForm from "../EditForm/EditForm";
 import { openEditFormModal } from "../../redux/slicers/EditForm.slicer";
 import { downloadedFile } from "../../redux/Thunk/downloadFile";
+import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import CloudDownloadOutlinedIcon from "@mui/icons-material/CloudDownloadOutlined";
 
 export default function UserFiles() {
   const [selectedFile, setSelectedFile] = useState("");
+  const [selectedRows, setSelectedRows] = useState<any[]>([]); //* стейт, в который добавляются объекты выбранных строк (для группового удаления)
 
   const dispatch = useAppDispatch();
   const files = useAppSelector(
@@ -35,37 +40,37 @@ export default function UserFiles() {
       width: 250,
       renderCell: (params) => (
         <>
-          <Button
-            variant="outlined"
+          <IconButton
             size="small"
             color="primary"
             onClick={() => {
               setSelectedFile(params.row);
               dispatch(openEditFormModal());
             }}
+            sx={{ justifyContent: "center" }}
           >
-            Edit
-          </Button>
-          <Button
-            variant="outlined"
+            <ModeOutlinedIcon style={{ fontSize: 20 }} />
+          </IconButton>
+          <IconButton
             size="small"
             color="error"
             onClick={() => {
               deleteHandler(params);
             }}
+            sx={{ justifyContent: "center" }}
           >
-            Delete
-          </Button>
-          <Button
-            variant="outlined"
+            <DeleteForeverOutlinedIcon style={{ fontSize: 20 }} />
+          </IconButton>
+          <IconButton
             size="small"
-            color="error"
+            color="success"
             onClick={() => {
               downloadHandler(params);
             }}
+            sx={{ justifyContent: "center" }}
           >
-            Download
-          </Button>
+            <CloudDownloadOutlinedIcon style={{ fontSize: 20 }} />
+          </IconButton>
         </>
       ),
     },
@@ -76,6 +81,20 @@ export default function UserFiles() {
   };
   const downloadHandler = (params: any) => {
     dispatch(downloadedFile(params.row.id, params.row.title));
+  };
+
+  const handleRowSelection = (selectedRows: any[]) => {
+    //* хэндлер для обновления состояния выбранных строк (объектов)
+    setSelectedRows(selectedRows); // Обновляем состояние выбранных строк при изменении чекбоксов
+    console.log(selectedRows);
+  };
+
+  const deleteSelectedHandler = () => {
+    // Обработчик для удаления выбранных строк
+    selectedRows.forEach((id: number) => {
+      dispatch(delFileFromBack(id));
+    });
+    setSelectedRows([]); // Сброс выбранных строк после удаления
   };
 
   const rows = files.map((el, i) => ({
@@ -105,7 +124,18 @@ export default function UserFiles() {
             pageSizeOptions={[5]}
             checkboxSelection
             disableRowSelectionOnClick
+            onRowSelectionModelChange={handleRowSelection} // Обработчик изменений выбранных строк
+            rowSelectionModel={selectedRows} // Передаем выбранные строки из состояния
           />
+          {selectedRows.length > 0 && (
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={deleteSelectedHandler}
+            >
+              Delete Selected
+            </Button>
+          )}
         </Box>
       </div>
       <EditForm selectedFile={selectedFile} setSelectedFile={setSelectedFile} />

@@ -7,7 +7,7 @@ import { editFileFromBack } from "../../redux/Thunk/editFiles";
 import { useAppDispatch } from "../../redux/Thunk/type";
 
 export default function EditForm({ selectedFile }: any) {
-  console.log(selectedFile);
+  // console.log(selectedFile);
 
   const dispatch = useAppDispatch();
   const openEditForm = useSelector(
