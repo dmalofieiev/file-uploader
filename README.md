@@ -28,9 +28,10 @@ To install this project, follow these steps:
 1. Clone the repository: `https://github.com/dmalofieiev/file-uploader`
 2. Install the dependencies for 'client' and 'server': `npm install`
 3. Create a `.env` file and copy the contents from `.env-example`
-4. Create the database and run migrations using sequelize-cli: `equelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli
-5. Start the server: npm run dev
-6. Access the server at http://localhost:3000
+4. Create the database and run migrations using sequelize-cli: `npx sequelize-cli db:create && npx sequelize-cli db:migrate`
+5. Start the server: `npm run dev`
+6. Start the client: `npm start`
+7. Access the server at `http://localhost:3000`
 
 ## Technologies Used
 
@@ -40,8 +41,10 @@ This project was built with:
 - HTML
 - CSS
 - JavaScript
-- Postgres
+- PostgreSQL
 - Sequelize
-- React JSX Components
-- Typed.js
-- Numbers API
+- React TSX Components
+- Redux Tool Kit
+- TypeScript
+- Multer
+- MUI
