@@ -13,7 +13,7 @@ A system that allows users to upload large-sized files.
 
 ![Demo-start-page-screen](client/public/assets/start-page.png)
 ![Demo-login-modal-screen](client/public/assets/login-modal.png)
-![Demo-home-page-screen](client/public/assets/home-page.png)
+![Demo-home-page-screen](client/public/assets/main-page.png)
 
 
 ## Features
